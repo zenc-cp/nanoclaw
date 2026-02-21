@@ -218,7 +218,7 @@ This is the admin channel. You have elevated privileges and responsibility for t
 
 ### Infrastructure
 
-- **ClawWork Cloud API**: `https://clawwork-cloud-api.onrender.com`
+- **ClawWork Cloud API**: `https://clawwork-cloud-api-sg.onrender.com`
   - `/dca/status` - Check DCA trading status
   - `/dca/start` - Start DCA trading bot
   - `/dca/stop` - Stop DCA trading bot
@@ -253,7 +253,7 @@ Set up these recurring tasks:
 
 1. **Every 30 minutes**: Check DCA status, restart if needed
    ```
-   schedule_task(prompt: "Check DCA trading status at https://clawwork-cloud-api.onrender.com/dca/status. If not running, start it via /dca/start. Report status.", schedule_type: "cron", schedule_value: "*/30 * * * *")
+   schedule_task(prompt: "Check DCA trading status at https://clawwork-cloud-api-sg.onrender.com/dca/status. If not running, start it via /dca/start. Report status.", schedule_type: "cron", schedule_value: "*/30 * * * *")
    ```
 
 2. **Daily at 9 AM HKT**: Portfolio report
