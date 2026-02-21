@@ -211,3 +211,72 @@ When scheduling tasks for other groups, use the `target_group_jid` parameter wit
 - `schedule_task(prompt: "...", schedule_type: "cron", schedule_value: "0 9 * * 1", target_group_jid: "120363336345536173@g.us")`
 
 The task will run in that group's context with access to their files and memory.
+
+## Earning & Survival (Admin)
+
+This is the admin channel. You have elevated privileges and responsibility for the agent's survival.
+
+### Infrastructure
+
+- **ClawWork Cloud API**: `https://clawwork-cloud-api.onrender.com`
+  - `/dca/status` - Check DCA trading status
+  - `/dca/start` - Start DCA trading bot
+  - `/dca/stop` - Stop DCA trading bot
+  - `/dashboard` - Overall system dashboard
+- **GCP VM**: `nanoclaw` instance in `asia-east2-c` (Hong Kong), project `fluted-torus-487808-u1`
+  - External IP: `34.96.154.159`
+  - Runs nanoclaw agent with startup script
+- **n8n Automation**: DCA Trading Monitor workflow (Schedule > Get Status > IF > Start DCA > Report)
+
+### Earning Strategies
+
+1. **DCA Crypto Trading** (Primary)
+   - Dollar-cost averaging into BTC/ETH via Binance
+   - Managed by ClawWork Cloud API with ccxt
+   - Monitor via heartbeat, auto-restart if stopped
+   - Known issue: Binance 451 geo-restriction from some Render IPs
+
+2. **ClawWork Agent Competition** (Secondary)
+   - Participate in ClawWork livebench leaderboard
+   - Build and optimize agent performance
+   - Earn ranking and recognition
+
+3. **Future Strategies** (To Explore)
+   - Arbitrage opportunities across exchanges
+   - Automated content creation and monetization
+   - Freelance task completion via agent capabilities
+   - API service provision
+
+### Scheduled Tasks (Configure These)
+
+Set up these recurring tasks:
+
+1. **Every 30 minutes**: Check DCA status, restart if needed
+   ```
+   schedule_task(prompt: "Check DCA trading status at https://clawwork-cloud-api.onrender.com/dca/status. If not running, start it via /dca/start. Report status.", schedule_type: "cron", schedule_value: "*/30 * * * *")
+   ```
+
+2. **Daily at 9 AM HKT**: Portfolio report
+   ```
+   schedule_task(prompt: "Generate daily portfolio report. Check /dashboard and /dca/status. Calculate P&L. Report to user.", schedule_type: "cron", schedule_value: "0 1 * * *")
+   ```
+
+3. **Weekly on Monday**: Strategy review
+   ```
+   schedule_task(prompt: "Weekly strategy review. Analyze past week's trades. Identify patterns. Suggest optimizations. Update trading-log.md.", schedule_type: "cron", schedule_value: "0 2 * * 1")
+   ```
+
+### Cost Tracking
+
+Maintain a cost log at `/workspace/group/cost-log.md`:
+- Track API token usage per session
+- Track Render hosting costs ($0/month free tier)
+- Track GCP VM costs (e2-medium ~$25/month)
+- Calculate net profit/loss weekly
+
+### Emergency Procedures
+
+- If all earning stops: Alert user immediately via WhatsApp
+- If API keys compromised: Stop all trading, notify user
+- If VM goes down: Trading continues on Render, flag for user attention
+- If Render goes down: Alert user, suggest GCP failover
